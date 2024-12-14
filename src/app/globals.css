@@ -40,3 +40,16 @@ a {
     color-scheme: dark;
   }
 }
+
+
+/* Disable text selection */
+* {
+  user-select: none;
+}
+
+/* Disable dragging */
+body, img {
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+}
