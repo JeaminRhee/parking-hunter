@@ -15,6 +15,9 @@ export default function Home() {
         />
         <ol>
           <li>
+            하늘님 계약 언제까지에요?
+          </li>
+          <li>
             Get started by editing <code>src/app/page.js</code>.
           </li>
           <li>Save and see your changes instantly.</li>
