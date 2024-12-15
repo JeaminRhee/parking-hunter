@@ -9,7 +9,7 @@ export default function Home() {
   const [count, setCount] = useState(0);
   const [fatalities, setFatalities] = useState(0);
   const fullText = "주차 헌터 ";
-  const maxRepeats = 10;
+  const maxRepeats = 20;
 
   useEffect(() => {
     let index = 0;
@@ -35,7 +35,7 @@ export default function Home() {
 
   useEffect(() => {
     const targetNumber = 199296;
-    const duration = 2500;
+    const duration = 3500;
     const increment = Math.ceil(targetNumber / (duration / 10));
 
     const interval = setInterval(() => {
@@ -53,7 +53,7 @@ export default function Home() {
 
   useEffect(() => {
     const targetNumber = 3349;
-    const duration = 2500;
+    const duration = 3500;
     const increment = Math.ceil(targetNumber / (duration / 10));
 
     const interval = setInterval(() => {
