@@ -36,11 +36,12 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 24px;
+  gap: 16px; /* Reduce gap between elements */
   width: 100%;
+  padding-top: 0; /* Remove padding at the top */
 }
+
 
 .main ol {
   font-family: var(--font-geist-mono);
@@ -69,9 +70,11 @@
 .animatedText {
   font-size: 2.5rem;
   font-weight: bold;
-  color: #333;
+  color: #000000;
   animation: fadeIn 0.5s ease-in-out;
   text-align: center;
+  margin: 0; /* Reset default margin */
+  padding: 0; /* Reset padding if any */
 }
 
 @keyframes fadeIn {
@@ -191,4 +194,21 @@ a.secondary:hover {
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
+}
+
+/* Container to ensure responsiveness */
+.responsiveImageContainer {
+  width: 100%; /* Full width of the parent container */
+  max-width: 400px; /* Set a max width to prevent it from getting too large */
+  margin: 0 auto; /* Center-align the container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Make the image responsive */
+.responsiveImage {
+  width: 100%; /* Make the image take the full width of its container */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Ensure the image scales without cropping */
 }
