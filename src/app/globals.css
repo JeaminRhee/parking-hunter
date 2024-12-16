@@ -1,12 +1,16 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #ffffff; /* Light mode background */
+  --foreground: #171717; /* Light mode text color */
+  --navbar-bg: #ffffff; /* Navbar background in light mode */
+  --navbar-text: #000000; /* Navbar text color in light mode */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0a0a0a; /* Dark mode background */
+    --foreground: #ededed; /* Dark mode text color */
+    --navbar-bg: #0a0a0a; /* Navbar background in dark mode */
+    --navbar-text: #ffffff; /* Navbar text color in dark mode */
   }
 }
 
@@ -41,7 +45,6 @@ a {
   }
 }
 
-
 /* Disable text selection */
 * {
   user-select: none;
@@ -52,4 +55,84 @@ body, img {
   -webkit-user-drag: none;
   -moz-user-drag: none;
   -o-user-drag: none;
+}
+
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--navbar-bg); /* Dynamic background color */
+  color: var(--navbar-text); /* Dynamic text color */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--navbar-text); /* Dynamic text color */
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--navbar-text); /* Dynamic text color */
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: #888; /* Slight gray for hover */
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 30px;
+  height: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger .line {
+  width: 100%;
+  height: 3px;
+  background-color: var(--navbar-text); /* Dynamic line color */
+  transition: transform 0.3s;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    background-color: var(--navbar-bg);
+    color: var(--navbar-text);
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .hamburger {
+    display: flex;
+  }
 }
