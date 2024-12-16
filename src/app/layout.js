@@ -22,6 +22,7 @@ export default function RootLayout({ children }) {
     <html lang="kr">
       <head>
         <meta name="google-site-verification" content="bzv-sleP2VCnEvq6l7fCuXOzprn7SjOXkJrVrkdLJeM" />
+        <meta name="naver-site-verification" content="9f0f3b5da8f20841069e6889d9683854e1ca3763" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ThemeProvider>{children}</ThemeProvider>
