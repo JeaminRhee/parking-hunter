@@ -83,8 +83,10 @@ export default function Home() {
             className={styles.responsiveImage}
             src="/illegal_parkings01.PNG"
             alt="부산불법주정차사진전01"
-            width={100}
-            height={45}
+            width={300}
+            height={135}
+            quality={100}
+            unoptimized
           />
         </div>
         <a><code>대한민국 주차 문화 현실 ...</code> </a>
@@ -93,8 +95,10 @@ export default function Home() {
             className={styles.responsiveImage}
             src="/illegal_parkings02.PNG"
             alt="부산불법주정차사진전02"
-            width={100}
-            height={45}
+            width={300}
+            height={135}
+            quality={100}
+            unoptimized
           />
         </div>
         <a><code>주차질서 의식 부족 ... <br/>근접 주차 선호 ...<br/>주차는 원래 공짜 인식 ...</code><br/><br/> 근접 주차를 선호하는 경향과 주차를 공짜로 이용하는 인식이 불법주정차 문제를 악화시킵니다.
@@ -106,8 +110,10 @@ export default function Home() {
             className={styles.responsiveImage}
             src="/japan_example01.PNG"
             alt="일본불법주정차없는이유01"
-            width={100}
-            height={45}
+            width={300}
+            height={135}
+            quality={100}
+            unoptimized
           />
         </div>
         <div className={styles.responsiveImageContainer}>
@@ -115,8 +121,10 @@ export default function Home() {
             className={styles.responsiveImage}
             src="/japan_example02.PNG"
             alt="일본불법주정차없는이유02"
-            width={100}
-            height={45}
+            width={300}
+            height={135}
+            quality={100}
+            unoptimized
           />
         </div>
         <div className={styles.responsiveImageContainer}>
@@ -124,8 +132,10 @@ export default function Home() {
             className={styles.responsiveImage}
             src="/japan_example03.PNG"
             alt="일본불법주정차없는이유03"
-            width={100}
-            height={45}
+            width={300}
+            height={135}
+            quality={100}
+            unoptimized
           />
         </div>
         <div className={styles.responsiveImageContainer}>
@@ -133,8 +143,10 @@ export default function Home() {
             className={styles.responsiveImage}
             src="/japan_example04.PNG"
             alt="일본불법주정차없는이유04"
-            width={100}
-            height={45}
+            width={300}
+            height={135}
+            quality={100}
+            unoptimized
           />
         </div>
         <div className={styles.responsiveImageContainer}>
@@ -142,8 +154,10 @@ export default function Home() {
             className={styles.responsiveImage}
             src="/japan_example05.PNG"
             alt="일본불법주정차없는이유05"
-            width={100}
-            height={45}
+            width={300}
+            height={135}
+            quality={100}
+            unoptimized
           />
         </div>
         <div className={styles.responsiveImageContainer}>
@@ -151,8 +165,10 @@ export default function Home() {
             className={styles.responsiveImage}
             src="/japan_example06.PNG"
             alt="일본불법주정차없는이유06"
-            width={100}
-            height={45}
+            width={300}
+            height={135}
+            quality={100}
+            unoptimized
           />
         </div>
         <div className={styles.ctas}>
