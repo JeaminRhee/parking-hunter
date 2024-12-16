@@ -14,12 +14,15 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "주차헌터",
-  description: "Let us hunt down all illegal parkings and save lives!",
+  description: "주차헌터 : 불법주차 척결 & 인구 지키자",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="kr">
+      <head>
+        <meta name="google-site-verification" content="bzv-sleP2VCnEvq6l7fCuXOzprn7SjOXkJrVrkdLJeM" />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ThemeProvider>{children}</ThemeProvider>
       </body>
