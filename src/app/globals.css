@@ -59,14 +59,14 @@ body, img {
 
 /* Navbar Styles */
 .navbar {
+  position: sticky;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: var(--navbar-bg); /* Dynamic background color */
-  color: var(--navbar-text); /* Dynamic text color */
-  position: sticky;
-  top: 0;
+  background-color: var(--background);
+  color: var(--foreground);
   z-index: 1000;
 }
 
@@ -79,14 +79,11 @@ body, img {
 .nav-links {
   display: flex;
   gap: 20px;
-  align-items: center;
 }
 
 .nav-links a {
-  color: var(--navbar-text); /* Dynamic text color */
+  color: var(--foreground);
   text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.2s;
 }
 
 .nav-links a:hover {
@@ -97,24 +94,18 @@ body, img {
 .hamburger {
   display: none;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  width: 30px;
-  height: 30px;
-  background: none;
-  border: none;
+  gap: 5px;
   cursor: pointer;
+  border: none;
+  background: none;
 }
 
 .hamburger .line {
-  width: 100%;
+  width: 25px;
   height: 3px;
-  background-color: var(--navbar-text); /* Dynamic line color */
-  transition: transform 0.3s;
+  background-color: var(--foreground);
 }
 
-/* Mobile Styles */
 @media (max-width: 768px) {
   .nav-links {
     display: none;
@@ -122,17 +113,33 @@ body, img {
     position: absolute;
     top: 50px;
     right: 10px;
-    background-color: var(--navbar-bg);
-    color: var(--navbar-text);
-    padding: 10px;
-    border-radius: 8px;
+    background-color: var(--background);
+    padding: 10px 20px; /* Add padding for better spacing */
+    border: 1px solid var(--foreground);
+    border-radius: 5px;
+    align-items: center; /* Center horizontally */
+    text-align: center; /* Center-align the text */
+    gap: 15px; /* Add spacing between items */
+    min-width: 220px; /* Adjust minimum width for long text */
   }
 
   .nav-links.open {
     display: flex;
   }
 
+  .nav-links a {
+    display: inline-block; /* Ensure links behave like inline elements */
+    width: auto; /* Adjust width dynamically based on content */
+    text-align: center; /* Center-align text */
+    color: var(--foreground);
+    text-decoration: none;
+    font-size: 1rem;
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+
   .hamburger {
     display: flex;
   }
 }
+
+

@@ -87,6 +87,7 @@ export default function Home() {
             height={135}
             quality={100}
             unoptimized
+            priority
           />
         </div>
         <a><code>대한민국 주차 문화 현실 ...</code> </a>
@@ -172,13 +173,13 @@ export default function Home() {
           />
         </div>
         <div className={styles.ctas}>
-          <a className={styles.primary} href="/" rel="noopener noreferrer">
+          <a className={styles.primary} href="/lottery" rel="noopener noreferrer">
             <Image className={styles.logo} src="/vercel.svg" alt="Vercel logomark" width={20} height={20} />
             불법주정차 신고하고 기프티콘 받기
           </a>
           <a className={styles.primary} href="/lectures" rel="noopener noreferrer">
             <Image className={styles.logo} src="/vercel.svg" alt="Vercel logomark" width={20} height={20} />
-            불법주정차 신고방법 교육자료
+            불법주정차 신고 교육자료
           </a>
           <a href="/" rel="noopener noreferrer" className={styles.secondary}>
             Home
@@ -186,15 +187,15 @@ export default function Home() {
         </div>
       </main>
       <footer className={styles.footer}>
-        <a href="https://nextjs.org/learn" target="_blank" rel="noopener noreferrer">
+        <a href="/" target="_blank" rel="noopener noreferrer">
           <Image aria-hidden src="/file.svg" alt="File icon" width={16} height={16} />
           Learn
         </a>
-        <a href="https://vercel.com/templates" target="_blank" rel="noopener noreferrer">
+        <a href="/" target="_blank" rel="noopener noreferrer">
           <Image aria-hidden src="/window.svg" alt="Window icon" width={16} height={16} />
           Examples
         </a>
-        <a href="https://nextjs.org" target="_blank" rel="noopener noreferrer">
+        <a href="/" target="_blank" rel="noopener noreferrer">
           <Image aria-hidden src="/globe.svg" alt="Globe icon" width={16} height={16} />
           Go to nextjs.org →
         </a>

@@ -4,7 +4,7 @@ export default function Lectures() {
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>
-        딸배헌터 교수님의 불법주정차 신고 방법 교육자료
+        불법주정차 신고 방법 교육자료
       </h1>
       <div className={styles.videoWrapper}>
         <iframe

@@ -11,8 +11,6 @@ export default function ThemeProvider({ children }) {
       setTheme(mediaQuery.matches ? 'dark' : 'light');
     };
 
-    console.log(theme)
-
     handleThemeChange();
     mediaQuery.addEventListener('change', handleThemeChange);
 
