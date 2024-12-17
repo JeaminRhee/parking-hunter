@@ -46,6 +46,7 @@ export default function RootLayout({ children }) {
       '/lottery': '주차헌터 - 신고 & 기프티콘',
       '/impaired': '주차헌터 - 장애인차량 조회',
       '/lectures': '주차헌터 - 교육자료',
+      '/statistics': '주차헌터 - 신고통계',
     };
     document.title = titles[pathname] || '주차헌터 - 페이지를 찾을 수 없음';
   }, [pathname]);
