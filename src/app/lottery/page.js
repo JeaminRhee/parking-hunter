@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import moment from 'moment-timezone';
 import styles from './lottery.module.css';
+import Image from "next/image";
 
 export default function Lottery() {
   const [activeTab, setActiveTab] = useState('tab1');
@@ -117,6 +118,7 @@ export default function Lottery() {
   };
 
   const tabContents = {
+    // TAB 1: 랜덤 추첨 참여
     tab1: (
       <div className={styles.content}>
         <h2 style={{ margin: '10px auto' }}>🎁 랜덤 기프티콘 추첨 참여하기</h2>
@@ -160,8 +162,98 @@ export default function Lottery() {
         </form>
       </div>
     ),
-    tab2: <div className={styles.content}>🔍 기프티콘 목록 조회 중...</div>,
+
+    // TAB 2: 참여방법
+    tab2: (
+      <div className={styles.content}>
+        <h2 style={{ margin: '10px auto' }}>🔍 안전신문고 신고번호 복사 방법</h2>
+        <p><br/>*참여를 위해 총 <strong style={{ color: 'red', margin: '20px auto' }}>5개</strong>의 수용 신고번호가 필요합니다<br/>.</p>
+        <p>
+          I. <strong style={{ color: 'red', margin: '20px auto' }}>안전신문고 앱</strong> 열기.
+        </p>
+        <p style={{ margin: '30px auto' }}>
+          II. 우측 상단 <strong style={{ color: 'red', margin: '20px auto' }}>햄버거 메뉴</strong> 열기.
+        </p>
+        <div className={styles.responsiveImageContainer} style={{margin: '20px auto' }}>
+          <Image
+            className={styles.responsiveImage}
+            src="../report_demonstration_process01.jpg"
+            alt="주차헌터_안전신문고_절차01"
+            width={300}
+            height={350}
+            quality={100}
+            unoptimized
+          />
+        </div>
+        <p style={{ margin: '30px auto' }}>
+          III. <strong style={{ color: 'red', margin: '20px auto' }}>'나의신고'</strong> &nbsp; 클릭
+        </p>
+        <div className={styles.responsiveImageContainer} style={{margin: '20px auto' }}>
+          <Image
+            className={styles.responsiveImage}
+            src="../report_demonstration_process02.jpg"
+            alt="주차헌터_안전신문고_절차02"
+            width={300}
+            height={350}
+            quality={100}
+            unoptimized
+          />
+        </div>
+        <p style={{ margin: '30px auto' }}>
+          IV. '신고내역' &nbsp; 클릭
+        </p>
+        <div className={styles.responsiveImageContainer} style={{margin: '20px auto' }}>
+          <Image
+            className={styles.responsiveImage}
+            src="../report_demonstration_process03.jpg"
+            alt="주차헌터_안전신문고_절차03"
+            width={300}
+            height={350}
+            quality={100}
+            unoptimized
+          />
+        </div>
+        <p style={{ margin: '30px auto' }}>
+          V. '신고번호' 복사
+        </p>
+        <div className={styles.responsiveImageContainer} style={{margin: '20px auto' }}>
+          <Image
+            className={styles.responsiveImage}
+            src="../report_demonstration_process04.jpg"
+            alt="주차헌터_안전신문고_절차04"
+            width={300}
+            height={350}
+            quality={100}
+            unoptimized
+          />
+        </div>
+        <p style={{ margin: '30px auto' }}>
+          VI. '신고번호' 붙여넣기
+        </p>
+        <div className={styles.responsiveImageContainer} style={{margin: '20px auto' }}>
+          <Image
+            className={styles.responsiveImage}
+            src="../report_demonstration_process05.jpg"
+            alt="주차헌터_안전신문고_절차05"
+            width={300}
+            height={400}
+            quality={100}
+            unoptimized
+          />
+        </div>
+        <p style={{ margin: '30px auto' }}>
+          VII. '신고번호' 5개 복붙하고 응모하기
+        </p>
+        <p style={{ margin: '30px auto'}}>
+          <strong>- 끝 -</strong>
+        </p>
+      </div>
+    ),
+
+    // TAB 3: 당첨자 명단
     tab3: <div className={styles.content}>🎉 당첨자 명단 조회</div>,
+    
+    // TAB 4: 후기
     tab4: <div className={styles.content}>📊 후기</div>,
   };
 
