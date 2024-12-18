@@ -78,7 +78,7 @@
 .form input:focus {
   outline: none;
   border-color: #0070f3;
-  box-shadow: 0 0 5px rgba(0, 112, 243, 0.5);
+  box-shadow: 0 0 5px rgba(143, 207, 199, 0.5);
 }
 
 /* Ensure proper color contrast in dark mode */

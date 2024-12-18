@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import moment from 'moment-timezone';
 import styles from './lottery.module.css';
-import '../globals.css';
 
 export default function Lottery() {
   const [activeTab, setActiveTab] = useState('tab1');
