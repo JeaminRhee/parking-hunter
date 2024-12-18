@@ -105,7 +105,7 @@ export default function Home() {
         <a><code>주차질서 의식 부족 ... <br/>근접 주차 선호 ...<br/>주차는 원래 공짜 인식 ...</code><br/><br/> 근접 주차를 선호하는 경향과 주차를 공짜로 이용하는 인식이 불법주정차 문제를 악화시킵니다.
 <br/><br/>
 이렇게 불법주정차 차량 때문에 목숨을 잃는 사람이 매년 <code>1,000명</code> 이상... <br/><br/></a>
-<a><code>반면 옆나라는 ...</code> </a>
+<a><code>반면 옆나라 일본은 ...</code> </a>
         <div className={styles.responsiveImageContainer}>
           <Image
             className={styles.responsiveImage}
@@ -117,6 +117,12 @@ export default function Home() {
             unoptimized
           />
         </div>
+        <a style={{ display: 'inline' }}>
+          I. 일본 불법주차 없는 이유 <br />
+          <span style={{ whiteSpace: 'nowrap' }}>
+            <code><span style={{ color: 'red' }}>주차 = 유료</span></code> 인식
+          </span>
+        </a>
         <div className={styles.responsiveImageContainer}>
           <Image
             className={styles.responsiveImage}
@@ -128,6 +134,12 @@ export default function Home() {
             unoptimized
           />
         </div>
+        <a style={{ display: 'inline' }}>
+          II. 일본 불법주차 없는 이유 <br />
+          <span style={{ whiteSpace: 'nowrap' }}>
+            <code><span style={{ color: 'red' }}>엄격한 처벌</span></code>
+          </span>
+        </a>
         <div className={styles.responsiveImageContainer}>
           <Image
             className={styles.responsiveImage}
@@ -150,6 +162,12 @@ export default function Home() {
             unoptimized
           />
         </div>
+        <a style={{ display: 'inline' }}>
+          III. 일본 불법주차 없는 이유 <br />
+          <span style={{ whiteSpace: 'nowrap' }}>
+            <code><span style={{ color: 'red' }}>안전</span></code>을 위해
+          </span>
+        </a>
         <div className={styles.responsiveImageContainer}>
           <Image
             className={styles.responsiveImage}
@@ -172,6 +190,9 @@ export default function Home() {
             unoptimized
           />
         </div>
+        <a style={{ display: 'inline' }}>
+          <code>정해진 약속은 모두가 지킨다는 인식...</code> <br />
+        </a>
         <div className={styles.ctas}>
           <a className={styles.primary} href="/lottery" rel="noopener noreferrer">
             <Image className={styles.logo} src="/vercel.svg" alt="Vercel logomark" width={20} height={20} />
