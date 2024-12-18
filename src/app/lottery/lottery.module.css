@@ -60,7 +60,7 @@
   
 .form label {
   font-size: 1rem;
-  color: #333;
+  color: var(--foreground); /* Dynamically adjusts based on the color scheme */
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -71,6 +71,8 @@
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
+  background-color: var(--input-background); /* Dynamically adjusts */
+  color: var(--foreground); /* Dynamically adjusts based on the color scheme */
 }
   
 .form input:focus {
@@ -78,7 +80,24 @@
   border-color: #0070f3;
   box-shadow: 0 0 5px rgba(0, 112, 243, 0.5);
 }
-  
+
+/* Ensure proper color contrast in dark mode */
+@media (prefers-color-scheme: dark) {
+  .form label {
+    color: #ffffff; /* White for better visibility in dark mode */
+  }
+
+  .form input {
+    background-color: #333333; /* Darker input background */
+    color: #ffffff; /* White text for better visibility */
+    border-color: #555555; /* Subtle border for dark mode */
+  }
+
+  .form input:focus {
+    border-color: #0070f3;
+    box-shadow: 0 0 5px rgba(0, 112, 243, 0.8);
+  }
+}
   
 /* Submit Button */
 .submitButton {
