@@ -39,6 +39,7 @@
 .tabButton.active {
   background-color: #005bb5;
   font-weight: bold;
+  color: white;
 }
 
 /* Content */
