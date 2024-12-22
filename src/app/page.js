@@ -202,12 +202,24 @@ export default function Home() {
             <Image className={styles.logo} src="/vercel.svg" alt="Vercel logomark" width={20} height={20} />
             불법주정차 신고 교육자료
           </a>
-          <a href="/" rel="noopener noreferrer" className={styles.secondary}>
-            Home
+          <a className={styles.primary} href="/impaired" rel="noopener noreferrer">
+            <Image className={styles.logo} src="/vercel.svg" alt="Vercel logomark" width={20} height={20} />
+            장애인차량 조회하기
           </a>
+          <a className={styles.primary} href="/statistics" rel="noopener noreferrer">
+            <Image className={styles.logo} src="/vercel.svg" alt="Vercel logomark" width={20} height={20} />
+            불법주정차 통계 조회하기
+          </a>
+          <a className={styles.primary} href="https://open.kakao.com/o/g0yUseOg" target='_blank' rel="noopener noreferrer">
+            <Image className={styles.logo} src="/vercel.svg" alt="Vercel logomark" width={20} height={20} />
+            커뮤니티 입장하기
+          </a>
+          {/* <a href="/" rel="noopener noreferrer" className={styles.secondary}>
+            Home
+          </a> */}
         </div>
       </main>
-      <footer className={styles.footer}>
+      {/*<footer className={styles.footer}>
         <a href="/" target="_blank" rel="noopener noreferrer">
           <Image aria-hidden src="/file.svg" alt="File icon" width={16} height={16} />
           Learn
@@ -220,7 +232,7 @@ export default function Home() {
           <Image aria-hidden src="/globe.svg" alt="Globe icon" width={16} height={16} />
           Go to nextjs.org →
         </a>
-      </footer>
+      </footer>*/}
     </div>
   );
 }
