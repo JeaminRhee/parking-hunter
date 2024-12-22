@@ -143,7 +143,7 @@ export default function Lottery() {
     }
   
     if (todaySubmission.length > 0) {
-      alert('오늘 이미 응모를 완료하셨습니다. 내일 다시 시도해주세요.');
+      alert('오늘 이미 응모를 완료하셨습니다. 내일 다시 시도해주세요. 하루에 한 번만 응모 가능합니다.');
       return;
     }
   
@@ -198,6 +198,28 @@ export default function Lottery() {
     }));
   };
 
+  const [winners, setWinners] = useState([]);
+
+  // Tab 3 당첨자 명단 조회를 위한 
+  useEffect(() => {
+    const fetchWinners = async () => {
+      const { data, error } = await supabase
+        .from('report_code_lottery_winner')
+        .select('email, report_code, created_at')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching winners:', error.message);
+        setWinners([]);
+      } else {
+        setWinners(data || []);
+      }
+    };
+
+    if (activeTab === 'tab3') {
+      fetchWinners();
+    }
+  }, [activeTab]);
 
   const tabContents = {
     // TAB 1: 랜덤 추첨 참여
@@ -211,6 +233,9 @@ export default function Lottery() {
           현재는 {getAllowedPrefix().slice(-2)}월 <strong style={{ color: 'red' }}>수용</strong>건만
           허용합니다.
         </p>
+        <br/>
+        <p>{getAllowedPrefix().slice(-2)}월 총 응모 건수: <i>{reportCodes.length}</i></p>
+        <br/>
         <form className={styles.form} onSubmit={handleSubmit}>
           <label>
             이메일:
@@ -334,7 +359,23 @@ export default function Lottery() {
 
     // TAB 3: 당첨자 명단
     tab3: (
-      <div className={styles.content}>🎉 당첨자 명단 조회</div>
+      <div className={styles.content}>
+        <h2>🎉 당첨자 명단</h2>
+        {winners?.length > 0 ? (
+          <ul className={styles.winnerList}>
+            {winners.map((winner, index) => (
+              <li key={index} className={styles.winnerItem}>
+                <strong>{moment(winner.created_at).format('YYYY-MM')} 당첨자</strong> <br /><br />
+                <strong>📧이메일:</strong> {winner.email} <br />
+                <strong>📝신고번호:</strong> {winner.report_code} <br />
+                <strong>📅당첨일:</strong> {moment(winner.created_at).format('YYYY-MM-DD HH:mm')}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>아직 당첨자가 없습니다.</p>
+        )}
+      </div>
     ),
     
     // TAB 4: 후기
