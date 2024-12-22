@@ -35,6 +35,22 @@ export default function Lottery() {
     fetchData();
   }, []);
 
+
+  // 캐시 로컬스토리지에 같은 날짜의 응모 이력이 있는지 확인
+  const checkLocalStorageSubmission = () => {
+    const today = moment().tz('Asia/Seoul').format('YYYY-MM-DD');
+    const lastSubmission = localStorage.getItem('lastLotterySubmission');
+    return lastSubmission === today;
+  };
+
+  // 캐시 로컬스토리지에 응모 이력 저장
+  const updateLocalStorageSubmission = () => {
+    const today = moment().tz('Asia/Seoul').format('YYYY-MM-DD');
+    localStorage.setItem('lastLotterySubmission', today);
+  };
+
+
+
   const getAllowedPrefix = () => {
     const now = moment().tz('Asia/Seoul');
     const year = now.year();
@@ -84,7 +100,7 @@ export default function Lottery() {
     return true;
   };
   
-  // 응모하기는 하루에 한 번만 validation
+  
   
 
   // 이메일 validation
@@ -128,7 +144,16 @@ export default function Lottery() {
       }
     }
   
+    // Add localStorage check
+    // 응모하기는 하루에 한 번만 validation (캐시 로컬 스토리지)
+    if (checkLocalStorageSubmission()) {
+      alert('오늘 이미 응모를 완료하셨습니다. 내일 다시 시도해주세요. 하루에 한 번만 응모 가능합니다.');
+      return;
+    }
+
+
     // ✅ Check for Daily Submission for the Email
+    // 응모하기는 하루에 한 번만 validation (DB table)
     const { data: todaySubmission, error: dateError } = await supabase
       .from('report_code_lottery')
       .select('submitted_at')
@@ -148,6 +173,7 @@ export default function Lottery() {
     }
   
     // ✅ Check if Report Codes Exist in the Database
+    // 중복 신고 번호 validation
     const { data: existingCodes, error: duplicateError } = await supabase
       .from('report_code_lottery')
       .select('report_code')
@@ -166,6 +192,7 @@ export default function Lottery() {
     }
   
     // ✅ Insert Data in a Single Query
+    // 응모하기 데이터 insert
     try {
       const insertData = reportCodes.map((code) => ({
         email: formData.email,
@@ -183,6 +210,7 @@ export default function Lottery() {
   
       console.log('Form Data Submitted:', formData);
       alert('응모가 완료되었습니다! 🎉');
+      updateLocalStorageSubmission(); // 캐시 로컬스토리지에 응모 이력 저장
     } catch (err) {
       console.error('Unexpected error:', err);
       alert('알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
