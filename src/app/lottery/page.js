@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { supabase } from '../../utils/supabase/server';
+import { useState, useEffect } from 'react';
 import moment from 'moment-timezone';
 import styles from './lottery.module.css';
 import Image from "next/image";
@@ -16,6 +17,23 @@ export default function Lottery() {
     reportCode4: '',
     reportCode5: '',
   });
+
+  const [reportCodes, setReportCodes] = useState([]);
+
+  // Fetch data from Supabase on component mount
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data, error } = await supabase.from('report_code_lottery').select();
+      if (error) {
+        console.error('Error fetching report codes:', error.message);
+      } else {
+        setReportCodes(data);
+        console.log('Fetched report codes:', data);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const getAllowedPrefix = () => {
     const now = moment().tz('Asia/Seoul');
@@ -35,6 +53,7 @@ export default function Lottery() {
     }
   };
 
+  // 신고 번호 validation
   const validateReportCode = (code) => {
     const now = moment().tz('Asia/Seoul'); // Current time in KST
     const year = now.year().toString().slice(-2); // Last two digits of the year (e.g., 24)
@@ -65,6 +84,8 @@ export default function Lottery() {
     return true;
   };
   
+  // 응모하기는 하루에 한 번만 validation
+  
 
   // 이메일 validation
   const validateEmail = (email) => {
@@ -72,15 +93,18 @@ export default function Lottery() {
     return regex.test(email);
   };
 
-  // 응모하기 Validation
-  const handleSubmit = (e) => {
-    e.preventDefault();
 
+  // 응모하기 Validation
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    // ✅ Email Validation
     if (!validateEmail(formData.email)) {
       alert('이메일은 naver.com, kakao.com, 또는 gmail.com 도메인만 허용됩니다.');
       return;
     }
-
+  
+    // ✅ Gather and Validate Report Codes
     const reportCodes = [
       formData.reportCode1,
       formData.reportCode2,
@@ -88,14 +112,13 @@ export default function Lottery() {
       formData.reportCode4,
       formData.reportCode5,
     ];
-
+  
     const uniqueCodes = new Set(reportCodes);
-
     if (uniqueCodes.size !== reportCodes.length) {
       alert('신고 번호는 중복될 수 없습니다.');
       return;
     }
-
+  
     for (const code of reportCodes) {
       if (!validateReportCode(code)) {
         alert(
@@ -104,10 +127,68 @@ export default function Lottery() {
         return;
       }
     }
-
-    console.log('Form Data Submitted:', formData);
-    alert('응모가 완료되었습니다! 🎉');
+  
+    // ✅ Check for Daily Submission for the Email
+    const { data: todaySubmission, error: dateError } = await supabase
+      .from('report_code_lottery')
+      .select('submitted_at')
+      .eq('email', formData.email)
+      .gte('submitted_at', moment().tz('Asia/Seoul').startOf('day').toISOString())
+      .lte('submitted_at', moment().tz('Asia/Seoul').endOf('day').toISOString());
+  
+    if (dateError) {
+      console.error('Error checking daily submission:', dateError.message);
+      alert('일일 응모 확인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      return;
+    }
+  
+    if (todaySubmission.length > 0) {
+      alert('오늘 이미 응모를 완료하셨습니다. 내일 다시 시도해주세요.');
+      return;
+    }
+  
+    // ✅ Check if Report Codes Exist in the Database
+    const { data: existingCodes, error: duplicateError } = await supabase
+      .from('report_code_lottery')
+      .select('report_code')
+      .in('report_code', reportCodes);
+  
+    if (duplicateError) {
+      console.error('Error checking report codes:', duplicateError.message);
+      alert('신고 코드 검증 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      return;
+    }
+  
+    if (existingCodes.length > 0) {
+      const duplicateCodes = existingCodes.map((record) => record.report_code).join(', ');
+      alert(`다음 신고 코드가 이미 존재합니다: ${duplicateCodes}`);
+      return;
+    }
+  
+    // ✅ Insert Data in a Single Query
+    try {
+      const insertData = reportCodes.map((code) => ({
+        email: formData.email,
+        report_code: code,
+        submitted_at: moment().tz('Asia/Seoul').format('YYYY-MM-DD HH:mm:ss'),
+      }));
+  
+      const { error: insertError } = await supabase.from('report_code_lottery').insert(insertData);
+  
+      if (insertError) {
+        console.error('Error inserting data:', insertError.message);
+        alert('데이터 저장 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+        return;
+      }
+  
+      console.log('Form Data Submitted:', formData);
+      alert('응모가 완료되었습니다! 🎉');
+    } catch (err) {
+      console.error('Unexpected error:', err);
+      alert('알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+    }
   };
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -116,6 +197,7 @@ export default function Lottery() {
       [name]: value,
     }));
   };
+
 
   const tabContents = {
     // TAB 1: 랜덤 추첨 참여
@@ -251,7 +333,9 @@ export default function Lottery() {
     ),
 
     // TAB 3: 당첨자 명단
-    tab3: <div className={styles.content}>🎉 당첨자 명단 조회</div>,
+    tab3: (
+      <div className={styles.content}>🎉 당첨자 명단 조회</div>
+    ),
     
     // TAB 4: 후기
     tab4: <div className={styles.content}>📊 후기</div>,

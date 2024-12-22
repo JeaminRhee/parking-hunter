@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.47.9",
     "moment-timezone": "^0.5.46",
     "next": "15.1.0",
     "react": "^19.0.0",
