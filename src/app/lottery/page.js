@@ -28,7 +28,7 @@ export default function Lottery() {
         console.error('Error fetching report codes:', error.message);
       } else {
         setReportCodes(data);
-        console.log('Fetched report codes:', data);
+        // console.log('Fetched report codes:', data);
       }
     };
 
