@@ -52,7 +52,7 @@ export default function RootLayout({ children }) {
   }, [pathname]);
 
   return (
-    <html lang="kr">
+    <html lang="ko">
       <head>
         <title>주차헌터</title>
         <link rel="icon" href="/vercel.svg" />
