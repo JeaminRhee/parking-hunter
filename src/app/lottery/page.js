@@ -72,28 +72,65 @@ export default function Lottery() {
   // 신고 번호 validation
   const validateReportCode = (code) => {
     const now = moment().tz('Asia/Seoul'); // Current time in KST
-    const year = now.year().toString().slice(-2); // Last two digits of the year (e.g., 24)
-    const month = now.month() + 1; // Current month (1-based)
-    const today = now.date(); // Today's date (e.g., 17)
+    const currentYear = now.year(); // Current year (e.g., 2025)
+    const currentMonth = now.month() + 1; // Current month (1-based)
+    const today = now.date(); // Today's date (e.g., 5)
   
-    // Allowed prefix: SPP-YYMM
-    const prefixMonth = month < 10 ? `0${month}` : month; // Ensure two digits for the month
-    const allowedPrefix = `SPP-${year}${prefixMonth}`;
+    // Calculate the start date of the current range (7th of last month)
+    const rangeStart = now.clone().date(7).subtract(1, 'month'); // 7th of the previous month
+    const rangeEnd = rangeStart.clone().add(1, 'month').subtract(1, 'day'); // 6th of the current month
   
-    // Build regex: SPP-YYMM-DDNNNNN
-    const regex = new RegExp(`^${allowedPrefix}-(0[1-9]|[12][0-9]|3[01])\\d{5}$`);
+    // Determine allowed prefixes
+    const formatPrefix = (year, month) => {
+      const yearStr = year.toString().slice(-2); // Last two digits of the year
+      const monthStr = month < 10 ? `0${month}` : month; // Two-digit month
+      return `SPP-${yearStr}${monthStr}`;
+    };
+  
+    const prevYear = rangeStart.year();
+    const prevMonth = rangeStart.month() + 1; // Last month (1-based)
+    const currentPrefix = formatPrefix(currentYear, currentMonth);
+    const previousPrefix = formatPrefix(prevYear, prevMonth);
+  
+    // Build regex for the allowed prefixes
+    const regex = new RegExp(
+      `^(${previousPrefix}|${currentPrefix})-(0[1-9]|[12][0-9]|3[01])\\d{5}$`
+    );
   
     // Test format first
     if (!regex.test(code)) return false;
   
-    // Extract day part (DD)
-    const dayMatch = code.match(new RegExp(`^${allowedPrefix}-(\\d{2})\\d{5}$`));
-    if (!dayMatch) return false;
+    // Extract day and prefix parts from the code
+    const match = code.match(/^SPP-(\d{4})-(\d{2})/);
+    if (!match) return false;
   
-    const dayPart = parseInt(dayMatch[1], 10);
+    const [_, prefixYearMonth, dayPart] = match;
+    const day = parseInt(dayPart, 10);
   
-    // Validate day range: Day must not exceed today's date
-    if (dayPart < 1 || dayPart >= today) {
+    // Validate day range: must be within 1-31
+    if (day < 1 || day > 31) {
+      return false;
+    }
+  
+    // Determine the effective date range for the prefix
+    let prefixDateRange;
+    if (prefixYearMonth === previousPrefix.slice(4)) {
+      prefixDateRange = {
+        start: rangeStart.clone().startOf('month'),
+        end: rangeStart.clone().endOf('month'),
+      };
+    } else if (prefixYearMonth === currentPrefix.slice(4)) {
+      prefixDateRange = {
+        start: rangeEnd.clone().startOf('month'),
+        end: rangeEnd.clone().endOf('month'),
+      };
+    } else {
+      return false;
+    }
+  
+    // Check if the day is within the allowed range
+    const prefixDate = prefixDateRange.start.clone().date(day);
+    if (!prefixDate.isValid() || prefixDate.isBefore(prefixDateRange.start) || prefixDate.isAfter(prefixDateRange.end)) {
       return false;
     }
   
