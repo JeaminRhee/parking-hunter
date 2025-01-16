@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import moment from 'moment-timezone';
 import styles from './lottery.module.css';
 import Image from "next/image";
+import { DateTime } from 'luxon';
 
 export default function Lottery() {
   const [activeTab, setActiveTab] = useState('tab1');
@@ -52,20 +53,18 @@ export default function Lottery() {
 
 
   const getAllowedPrefix = () => {
-    const now = moment().tz('Asia/Seoul');
-    const year = now.year();
-    const month = now.month() + 1; // 1-based month
-    const startOfCurrentRange = moment.tz(`${year}-${month}-07`, 'Asia/Seoul');
-    const endOfCurrentRange = moment(startOfCurrentRange).add(1, 'month').date(6).endOf('day');
-
-    if (now.isSameOrAfter(startOfCurrentRange) && now.isSameOrBefore(endOfCurrentRange)) {
-      const formattedMonth = month < 10 ? `0${month}` : month;
-      return `SPP-${year.toString().slice(-2)}${formattedMonth}`;
+    const now = DateTime.now().setZone('Asia/Seoul');
+    const year = now.year;
+    const month = now.month;
+    const startOfCurrentRange = now.set({ day: 7, hour: 0, minute: 0, second: 0 }).startOf('day');
+    const endOfCurrentRange = startOfCurrentRange.plus({ months: 1 }).set({ day: 6 }).endOf('day');
+  
+    if (now >= startOfCurrentRange && now <= endOfCurrentRange) {
+      return `SPP-${String(year).slice(-2)}${String(month).padStart(2, '0')}`;
     } else {
       const prevMonth = month === 1 ? 12 : month - 1;
       const prevYear = month === 1 ? year - 1 : year;
-      const formattedPrevMonth = prevMonth < 10 ? `0${prevMonth}` : prevMonth;
-      return `SPP-${prevYear.toString().slice(-2)}${formattedPrevMonth}`;
+      return `SPP-${String(prevYear).slice(-2)}${String(prevMonth).padStart(2, '0')}`;
     }
   };
 
